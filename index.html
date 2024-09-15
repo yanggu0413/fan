@@ -71,10 +71,26 @@
         .dialog-content h3 {
             margin-bottom: 15px;
             color: #007bff;
+            font-size: 24px;
+            font-weight: bold;
         }
         .dialog-content p {
             margin: 0;
             font-size: 16px;
+            line-height: 1.5;
+            color: #333;
+        }
+        .dialog-content .status-normal {
+            color: #28a745;
+            font-weight: bold;
+        }
+        .dialog-content .status-warning {
+            color: #ffc107;
+            font-weight: bold;
+        }
+        .dialog-content .status-danger {
+            color: #dc3545;
+            font-weight: bold;
         }
         .dialog-content .btn-close-dialog {
             background: #dc3545;
@@ -125,25 +141,35 @@
 
         function showStatusMessage() {
             let message = "";
+            let statusClass = "";
+
             if (temperature < 0) {
                 message = "電風扇處於極端寒冷狀態，無法運作（雖然實際上可以恢復）。";
+                statusClass = "status-danger";
             } else if (temperature < 20) {
                 message = "電風扇在寒冷的環境下運行，正在以超低速運轉。請提高溫度來改善狀態。";
+                statusClass = "status-warning";
             } else if (temperature < 25) {
                 message = "電風扇運行良好，正在以低速保持舒適的溫度。";
+                statusClass = "status-normal";
             } else if (temperature < 40) {
                 message = "電風扇處於正常運行狀態，正在以中速為您提供清涼感。";
+                statusClass = "status-normal";
             } else if (temperature < 70) {
                 message = "電風扇正在以高速運轉以應對過高的溫度。請注意，過高的溫度可能會影響其壽命。";
+                statusClass = "status-warning";
             } else if (temperature <= 100) {
                 message = "電風扇處於極端高溫狀態，正在全力運行，可能會導致損壞。請立即降低溫度。";
+                statusClass = "status-danger";
             } else {
                 message = "電風扇已經過熱，無法繼續運作（但實際上仍然可以恢復）。";
+                statusClass = "status-danger";
             }
+
             document.getElementById('dialogMessage').innerHTML = `
                 <h3>電風扇狀態</h3>
-                <p>電風扇狀態：${fanStatus}</p>
-                <p>電風扇風速：${fanSpeed}</p>
+                <p class="${statusClass}">電風扇狀態：${fanStatus}</p>
+                <p class="${statusClass}">電風扇風速：${fanSpeed}</p>
                 <p>${message}</p>
             `;
             document.getElementById('dialogOverlay').style.display = 'flex';
