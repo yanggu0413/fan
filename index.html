@@ -48,10 +48,6 @@
             background-color: #17a2b8;
             color: white;
         }
-        .btn-close {
-            background-color: #dc3545;
-            color: white;
-        }
         .dialog-overlay {
             position: fixed;
             top: 0;
@@ -130,17 +126,19 @@
         function showStatusMessage() {
             let message = "";
             if (temperature < 0) {
-                message = "電風扇凍壞了，無法恢復（好啦其實可以啦）";
+                message = "電風扇處於極端寒冷狀態，無法運作（雖然實際上可以恢復）。";
             } else if (temperature < 20) {
-                message = "您的溫度快把電風扇凍壞了，電風扇以超低速運轉(拜託升高溫度)";
+                message = "電風扇在寒冷的環境下運行，正在以超低速運轉。請提高溫度來改善狀態。";
+            } else if (temperature < 25) {
+                message = "電風扇運行良好，正在以低速保持舒適的溫度。";
             } else if (temperature < 40) {
-                message = "您的溫度剛剛好，電風扇很開心";
+                message = "電風扇處於正常運行狀態，正在以中速為您提供清涼感。";
             } else if (temperature < 70) {
-                message = "您的溫度太高了，電風扇以高速運轉";
+                message = "電風扇正在以高速運轉以應對過高的溫度。請注意，過高的溫度可能會影響其壽命。";
             } else if (temperature <= 100) {
-                message = "您的溫度太高了，電風扇會燒壞的";
+                message = "電風扇處於極端高溫狀態，正在全力運行，可能會導致損壞。請立即降低溫度。";
             } else {
-                message = "電風扇燒壞了，無法恢復（好啦其實可以啦）";
+                message = "電風扇已經過熱，無法繼續運作（但實際上仍然可以恢復）。";
             }
             document.getElementById('dialogMessage').innerHTML = `
                 <h3>電風扇狀態</h3>
@@ -193,7 +191,6 @@
             <button onclick="showDonateOptions()" class="btn btn-custom btn-donate">斗內我</button>
             <button onclick="showAbout()" class="btn btn-custom btn-about">關於</button>
             <button onclick="showStory()" class="btn btn-custom btn-story">故事</button>
-            <button onclick="window.close()" class="btn btn-custom btn-close">離開</button>
         </div>
     </div>
 
