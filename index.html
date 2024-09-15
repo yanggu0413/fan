@@ -3,25 +3,57 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>電風扇</title>
+    <title>電風扇控制面板</title>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
     <style>
         body {
-            font-family: 'Helvetica', sans-serif;
-            text-align: center;
+            font-family: 'Arial', sans-serif;
+            background-color: #f8f9fa;
+            color: #343a40;
         }
-        .button {
-            font-size: 14px;
-            margin: 5px;
+        .container {
+            max-width: 800px;
+            margin: 30px auto;
+            padding: 20px;
+            background: #fff;
+            border-radius: 8px;
+            box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+        }
+        h1 {
+            margin-bottom: 20px;
+            color: #007bff;
         }
         .fan-image {
-            width: 200px;
+            width: 100%;
+            max-width: 400px;
             height: auto;
-            margin-top: 20px;
+            border-radius: 8px;
+            box-shadow: 0 4px 8px rgba(0,0,0,0.1);
         }
-        .donate-image {
-            width: 200px;
-            cursor: pointer;
-            margin: 10px;
+        .btn-custom {
+            font-size: 16px;
+            margin: 5px;
+            padding: 10px 20px;
+            border-radius: 5px;
+        }
+        .btn-donate {
+            background-color: #28a745;
+            color: white;
+        }
+        .btn-about {
+            background-color: #007bff;
+            color: white;
+        }
+        .btn-story {
+            background-color: #17a2b8;
+            color: white;
+        }
+        .btn-close {
+            background-color: #dc3545;
+            color: white;
+        }
+        .alert-custom {
+            font-size: 16px;
         }
     </style>
     <script>
@@ -88,8 +120,9 @@
 
         function showDonateOptions() {
             const donateOptions = `
-                <div>
+                <div class="text-center">
                     <h3>不要抖內我</h3>
+                    <p>感謝您的支持！</p>
                 </div>
             `;
             const newWindow = window.open("", "斗內", "width=300,height=300");
@@ -98,19 +131,23 @@
     </script>
 </head>
 <body>
-    <h1>電風扇</h1>
-    <img src="https://github.com/yanggu0413/fan/blob/main/fanimg.jpg?raw=true" alt="Fan Image" class="fan-image">
-    <div>
-        <label for="temperatureInput" style="font-size: 14px;">輸入溫度(攝氏)：</label>
-        <input type="number" id="temperatureInput" value="25" style="font-size: 14px;">
-        <button onclick="updateTemperature()" class="button">確定</button>
+    <div class="container text-center">
+        <h1>電風扇控制面板</h1>
+        <img src="https://github.com/yanggu0413/fan/blob/main/fanimg.jpg?raw=true" alt="Fan Image" class="fan-image">
+        <div class="my-4">
+            <label for="temperatureInput" class="form-label">輸入溫度(攝氏)：</label>
+            <input type="number" id="temperatureInput" value="25" class="form-control w-50 mx-auto">
+            <button onclick="updateTemperature()" class="btn btn-primary btn-custom">確定</button>
+        </div>
+        <div class="mt-4">
+            <button onclick="showDonateOptions()" class="btn btn-custom btn-donate">斗內我</button>
+            <button onclick="showAbout()" class="btn btn-custom btn-about">關於</button>
+            <button onclick="showStory()" class="btn btn-custom btn-story">故事</button>
+            <button onclick="window.close()" class="btn btn-custom btn-close">離開</button>
+        </div>
     </div>
-    <br>
-    <nav>
-        <button onclick="showDonateOptions()" class="button">斗內我</button>
-        <button onclick="showAbout()" class="button">關於</button>
-        <button onclick="showStory()" class="button">故事</button>
-        <button onclick="window.close()" class="button">離開</button>
-    </nav>
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.4/dist/umd/popper.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
 </body>
 </html>
