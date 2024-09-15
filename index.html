@@ -52,8 +52,43 @@
             background-color: #dc3545;
             color: white;
         }
-        .alert-custom {
+        .dialog-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0,0,0,0.5);
+            display: none;
+            justify-content: center;
+            align-items: center;
+        }
+        .dialog-content {
+            background: #fff;
+            border-radius: 8px;
+            padding: 20px;
+            box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+            max-width: 500px;
+            width: 100%;
+            text-align: center;
+        }
+        .dialog-content h3 {
+            margin-bottom: 15px;
+            color: #007bff;
+        }
+        .dialog-content p {
+            margin: 0;
             font-size: 16px;
+        }
+        .dialog-content .btn-close-dialog {
+            background: #dc3545;
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            font-size: 16px;
+            border-radius: 5px;
+            cursor: pointer;
+            margin-top: 15px;
         }
     </style>
     <script>
@@ -107,26 +142,41 @@
             } else {
                 message = "電風扇燒壞了，無法恢復（好啦其實可以啦）";
             }
-            alert(`電風扇狀態：${fanStatus}\n電風扇風速：${fanSpeed}\n\n${message}`);
+            document.getElementById('dialogMessage').innerHTML = `
+                <h3>電風扇狀態</h3>
+                <p>電風扇狀態：${fanStatus}</p>
+                <p>電風扇風速：${fanSpeed}</p>
+                <p>${message}</p>
+            `;
+            document.getElementById('dialogOverlay').style.display = 'flex';
         }
 
         function showAbout() {
-            alert("你的電風扇壞了嗎?\n你的電風扇怪怪的......\n作者:邱苡宬");
+            document.getElementById('dialogMessage').innerHTML = `
+                <h3>關於</h3>
+                <p>你的電風扇壞了嗎?\n你的電風扇怪怪的......\n作者:邱苡宬</p>
+            `;
+            document.getElementById('dialogOverlay').style.display = 'flex';
         }
 
         function showStory() {
-            alert("敬請期待");
+            document.getElementById('dialogMessage').innerHTML = `
+                <h3>故事</h3>
+                <p>敬請期待</p>
+            `;
+            document.getElementById('dialogOverlay').style.display = 'flex';
         }
 
         function showDonateOptions() {
-            const donateOptions = `
-                <div class="text-center">
-                    <h3>不要抖內我</h3>
-                    <p>感謝您的支持！</p>
-                </div>
+            document.getElementById('dialogMessage').innerHTML = `
+                <h3>不要抖內我</h3>
+                <p>感謝您的支持！</p>
             `;
-            const newWindow = window.open("", "斗內", "width=300,height=300");
-            newWindow.document.write(donateOptions);
+            document.getElementById('dialogOverlay').style.display = 'flex';
+        }
+
+        function closeDialog() {
+            document.getElementById('dialogOverlay').style.display = 'none';
         }
     </script>
 </head>
@@ -146,6 +196,15 @@
             <button onclick="window.close()" class="btn btn-custom btn-close">離開</button>
         </div>
     </div>
+
+    <!-- Dialog Overlay -->
+    <div id="dialogOverlay" class="dialog-overlay">
+        <div class="dialog-content">
+            <div id="dialogMessage"></div>
+            <button class="btn-close-dialog" onclick="closeDialog()">關閉</button>
+        </div>
+    </div>
+
     <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.4/dist/umd/popper.min.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
